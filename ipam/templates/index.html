@@ -15,6 +15,11 @@
     </header>
     <main>
         Информация на главной странице
+        <a href="">все записи группы</a>
+        {% for ip in ips %}
+            <p>{{ ip.ip_address }} {{ ip.status }} {{ ip.mac_address }}</p>    
+            {% if not forloop.last %}<hr>{% endif %}
+        {% endfor %}
     </main>
     <footer>
         {% include 'footer.html' %}

@@ -8,51 +8,29 @@ from django.contrib.auth import get_user_model
 # https://docs.djangoproject.com/en/4.2/topics/auth/customizing/#referencing-the-user-model
 User = get_user_model() 
 
-# class Post(models.Model):
-#     text = models.TextField()
-#     pub_date = models.DateTimeField(auto_now_add=True)
-#     author = models.ForeignKey(User, on_delete=models.CASCADE) 
-    # name = models.CharField(max_length=200)
-    # description = models.TextField()    
-    # on_main = models.BooleanField(default=True) 
-    # text = models.TextField() 
-    # pub_date = models.DateTimeField(auto_now_add=True)
-    # author = models.ForeignKey(
-    #     User,
-    #     on_delete=models.CASCADE,
-    #     related_name='posts'
-    # ) 
-
 class SubnetModel(models.Model): 
     cidr = models.CharField(max_length=18)
     description = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.cidr
+
 
 class IPAddressModel(models.Model):
     STATUS_CHOICES = (
-        ("FREE", "free"),
-        ("USED", "used")   
+        ("free", "free"),
+        ("used", "used")   
     )
     subnet = models.ForeignKey(SubnetModel, on_delete=models.CASCADE)
-    # ip_address = models.GenericIPAddressField(primary_key=True, unique=True)
     ip_address = models.GenericIPAddressField(unique=True)
-    status = models.CharField(choices = STATUS_CHOICES, max_length=4, default = 'free')
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    mac_address = models.CharField(max_length=18)
-    comment = models.TextField()
-    last_seen = models.DateTimeField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-
-# class EventModel(models.Model): 
-#     EVENT_TYPE_CHOICES = [
-#         ("RESERVED", "reserved"),
-#         ("RELEASED", "released"),
-#         ("ARPING_RESPONSE", "arping_response")
-#     ]
-#     # ip_address_id
-#     user_id = models.ForeignKey(User)
-#     event_type = models.CharField(choices = EVENT_TYPE_CHOICES, max_length=15)
-#     created_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(choices = STATUS_CHOICES, max_length=4)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+    mac_address = models.CharField(null=True, max_length=18)
+    comment = models.TextField(null=True, blank=True)
+    last_seen = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(null=True, auto_now_add=True)
+    updated_at = models.DateTimeField(null=True, auto_now=True)
+    
+    def __str__(self):
+        return self.ip_address

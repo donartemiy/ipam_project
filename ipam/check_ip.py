@@ -51,7 +51,7 @@ def analyse(ip):
         last_seen = None
     return ip, status, last_seen, mac_address
 
-def insert_or_update_ip(ip, subnet_id, status, mac_address, last_seen, user=None):
+def insert_or_update_ip(ip, subnet_id, status, mac_address, last_seen, user_id=None):
     # Используем полный путь к базе данных
     base_dir = os.path.dirname(os.path.abspath(__file__))
     db_path = os.path.join(base_dir, 'ipam_db.sqlite3')
@@ -79,9 +79,9 @@ def insert_or_update_ip(ip, subnet_id, status, mac_address, last_seen, user=None
     else:
         # Если записи нет, создаем новую
         cursor.execute('''
-            INSERT INTO ips_ipaddressmodel (subnet_id, ip_address, status, user, mac_address, last_seen)
+            INSERT INTO ips_ipaddressmodel (subnet_id, ip_address, status, user_id, mac_address, last_seen)
             VALUES (?, ?, ?, ?, ?, ?)
-        ''', (subnet_id, str(ip), status, user, mac_address, last_seen))
+        ''', (subnet_id, str(ip), status, user_id, mac_address, last_seen))
 
     conn.commit()
     conn.close()
@@ -108,6 +108,7 @@ if __name__ == "__main__":
         for future, ip in tasks:
             # Ждем завершения задачи и получаем ее результат
             ip, status, last_seen, mac_address = future.result()
+            print(ip, mac_address)
 
             # Сохраняем результат в базу данных
             count += 1
