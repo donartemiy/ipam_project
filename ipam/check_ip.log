@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/ar-zhuravlev/ipam_project/ipam/check_ip.py", line 114, in <module>
+    insert_or_update_ip(ip, subnet_id, status, mac_address, last_seen)
+  File "/home/ar-zhuravlev/ipam_project/ipam/check_ip.py", line 81, in insert_or_update_ip
+    cursor.execute('''
+sqlite3.OperationalError: table ips_ipaddressmodel has no column named subnet_id

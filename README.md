@@ -1,5 +1,16 @@
 # ipam_project
 
+```bash
+django-admin startproject ipam
+python3 manage.py startapp ips
+cd ~/ipam_project/ipam 
+python3 manage.py runserver 0.0.0.0:8000
+
+python manage.py makemigrations
+python manage.py migrate
+
+python manage.py createsuperuser
+```
 
 
 ## Getting started
