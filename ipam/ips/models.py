@@ -25,7 +25,7 @@ class IPAddressModel(models.Model):
     subnet = models.ForeignKey(SubnetModel, on_delete=models.CASCADE)
     ip_address = models.GenericIPAddressField(unique=True)
     status = models.CharField(choices = STATUS_CHOICES, max_length=4)
-    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
+    user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, related_name='ip_user')
     mac_address = models.CharField(null=True, max_length=18)
     comment = models.TextField(null=True, blank=True)
     last_seen = models.DateTimeField(null=True)

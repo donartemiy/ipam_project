@@ -24,7 +24,12 @@ def index(request):
     return render(request, 'index.html', context) 
 
 def ips_list(request):
-    return HttpResponse('Список ips')
+    ips = IPAddressModel.objects.all()[:40]
+    context = {
+        'ips': ips,
+    }
+    return render(request, 'ips/ips_list.html', context)
+    # return HttpResponse('Список ips')
 
 def ips_detail(request, ip):
     ip = get_object_or_404(IPAddressModel, ip_address=ip)
@@ -33,4 +38,4 @@ def ips_detail(request, ip):
         'posts': 'posts',
     }
     # return HttpResponse(f'Вы указали IP: {ip}') 
-    return render(request, 'ips_detail.html', context) 
+    return render(request, 'ips/ips_detail.html', context) 

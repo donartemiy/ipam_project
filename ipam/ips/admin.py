@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import IPAddressModel, SubnetModel
 
 # admin.site.register(IPAddressModel) 
-admin.site.register(SubnetModel) 
+# admin.site.register(SubnetModel) 
 
 @admin.register(IPAddressModel)
 class IPAddressAdmin(admin.ModelAdmin):
@@ -13,3 +13,8 @@ class IPAddressAdmin(admin.ModelAdmin):
                     'created_at', 'updated_at')
     search_fields = ('ip_address',)
     list_filter = ('last_seen',)
+
+@admin.register(SubnetModel)
+class SubnetAdmin(admin.ModelAdmin):
+    list_display = ('cidr', 'description', 
+                    'created_at')

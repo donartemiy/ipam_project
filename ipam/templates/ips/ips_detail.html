@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Последние обновления на сайте{% endblock %} 
+
+{% block content %}
+    <main>
+        <h4>Информация по IP: {{ ip.ip_address }} </h4>
+        <p>subnet {{ ip.subnet }} </p>
+        <p>status: {{ip.status }} </p>
+        <p>user: {{ip.user}} </p>
+        <p>mac_address: {{ip.mac_address}} </p>
+        <p>comment: {{ip.comment}} </p>
+        <p>last_seen: {{ip.last_seen}} </p>
+        <p>created_at: {{ip.created_at}} </p>
+        <p>updated_at: {{ip.updated_at}} </p>
+    </main>
+
+{% endblock %} 
