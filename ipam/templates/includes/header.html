@@ -1,10 +1,48 @@
-
 {% load static %}
 
-{% comment %}
-Внутри тега {% with %} переменная view_short_name - 
+<nav class="navbar navbar-light win95-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="">
+      <img src="{% static 'img/logo.png' %}" class="win95-logo" alt="">
+      <span class="win95-title">IP</span>AM
+    </a>
+    {% with request.resolver_match.view_name as view_short_name %}
+    <ul class="nav win95-nav">
+      {% if user.username %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'ips:var_ips' %}">К списку IP</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:var_profile' username=user.username %}">Обо мне</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+      </li>
+      <li class="nav-item win95-user">
+        Пользователь: {{ user.username }}
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link {% if view_short_name == 'users:var_login' %}active{% endif %}" href="{% url 'users:var_login' %}">Войти</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if view_short_name == 'users:var_signup' %}active{% endif %}" href="{% url 'users:var_signup' %}">Регистрация</a>
+      </li>
+      {% endif %}
+    </ul>
+    {% endwith %}
+  </div>
+</nav>
+
+
+
+{% comment %} 
+{% load static %}
+
+
+<!-- Внутри тега {% with %} переменная view_short_name - 
 это синоним для request.resolver_match.view_name
-{% endcomment %}
+ -->
 
 <nav class="navbar navbar-light" style="background-color: lightskyblue">
   <div class="container">
@@ -16,42 +54,34 @@
     {# Добавлено в спринте #}
 
     {% with request.resolver_match.view_name as view_short_name %}  
-    {% comment %}
-    Меню - список пунктов со стандартными классами Bootsrap.
-    Класс nav-pills нужен для выделения активных пунктов 
-    {% endcomment %}
+<!-- Меню - список пунктов со стандартными классами Bootsrap.
+    Класс nav-pills нужен для выделения активных пунктов  -->
     <ul class="nav nav-pills">
-      <li class="nav-item"> 
-        {% comment %} <a class="nav-link {% if view_short_name  == 'about_namespace:author' %}active{% endif %}" href="{% url 'about_namespace:author' %}">Об авторе</a> {% endcomment %}
-      </li>
-      <li class="nav-item">
-        {% comment %} <a class="nav-link {% if view_short_name  == 'about_namespace:tech' %}active{% endif %}" href="{% url 'about_namespace:tech' %}">Технологии</a> {% endcomment %}
-      </li>
       {% if user.username  %}<!-- Проверка: авторизован ли пользователь? -->
       <li class="nav-item"> 
         <a class="nav-link" href="">Новая запись</a><!-- Сделаем в финальном задании спринта -->
       </li>
       <li class="nav-item"> 
-        {% comment %} <a class="nav-link link-light" href="{% url 'users:var_password_change' %}">Изменить пароль</a> <!-- Похоже это скипнул)  --> {% endcomment %}
+        <a class="nav-link link-light" href="{% url 'users:var_password_change' %}">Изменить пароль</a> <!-- Похоже это скипнул)  -->
       </li>
       <li class="nav-item"> 
-        {% comment %} <a class="nav-link link-light {% if view_name == 'users:logout' %}active{% endif %}"  {% endcomment %}
-        {% comment %} href="{% url 'users:logout' %}">Выйти</a> {% endcomment %}
+        <a class="nav-link link-light {% if view_name == 'users:logout' %}active{% endif %}" 
+        href="{% url 'users:logout' %}">Выйти</a>
       </li>
       <li>
         Пользователь: 
-        {% comment %} {{ user.username }} {% endcomment %}
+        {{ user.username }}
       </li>
       {% else %}
       <li class="nav-item"> 
-        {% comment %} <a class="nav-link link-light {% if view_short_name  == 'users:var_login' %}active{% endif %}" href="{% url 'users:var_login' %}">Войти</a> {% endcomment %}
+        <a class="nav-link link-light {% if view_short_name  == 'users:var_login' %}active{% endif %}" href="{% url 'users:var_login' %}">Войти</a>
       </li>
       <li class="nav-item"> 
-        {% comment %} <a class="nav-link link-light {% if view_short_name  == 'users:var_signup' %}active{% endif %}" href="{% url 'users:var_signup' %}">Регистрация</a> {% endcomment %}
+        <a class="nav-link link-light {% if view_short_name  == 'users:var_signup' %}active{% endif %}" href="{% url 'users:var_signup' %}">Регистрация</a>
       </li>
       {% endif %}
     </ul>
     {# Конец добавленого в спринте #}
   </div>
 </nav>
-{% endwith %} 
+{% endwith %}  {% endcomment %}

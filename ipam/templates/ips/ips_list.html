@@ -9,10 +9,17 @@
         <main>
             Информация на главной странице
             <a href="">все записи</a>
-            {% for ip in ips %}
-                <p>{{ ip.ip_address }} {{ ip.status }} {{ ip.mac_address }}</p>    
+            {% for ip in page_obj %}
+                <p>
+                  {{ ip.ip_address }} {{ ip.status }} {{ ip.mac_address }}
+                  <!-- Кнопка для перехода -->
+                  <a href="{% url 'ips:var_ips_detail' ip.ip_address %}">
+                    <button type="button">Подробнее</button>
+                  </a>
+                </p>    
                 {% if not forloop.last %}<hr>{% endif %}
             {% endfor %}
+            {% include 'paginator.html' %}
         </main>
       </div>
 {% endblock %} 

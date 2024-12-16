@@ -1,0 +1,172 @@
+/* Основные стили */
+body {
+    font-family: "Microsoft Sans Serif", sans-serif;
+    background-color: #c0c0c0;
+    color: #000;
+}
+
+.win95-navbar {
+    background-color: #008080;
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.win95-navbar .container {
+    display: flex;
+    justify-content: space-between;
+    /* Распределяет элементы на весь доступный горизонтальный простор */
+    align-items: center;
+    /* Вертикально выравнивает элементы */
+}
+
+.win95-logo {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #000;
+    border-radius: 5px;
+}
+
+.win95-title {
+    color: #ff0000;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.win95-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    /* Размещает элементы списка в строку */
+    margin-left: auto;
+    /* Сдвигает список вправо */
+}
+
+.win95-nav .nav-item {
+    margin-left: 10px;
+    /* Добавляем отступ между элементами */
+}
+
+.win95-nav .nav-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    padding: 5px 10px;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.win95-nav .nav-link:hover {
+    background-color: #d0d0d0;
+}
+
+.win95-nav .nav-link.active {
+    background-color: #a0a0a0;
+}
+
+.win95-user {
+    font-size: 12px;
+    color: #800000;
+    margin-top: 15px;
+}
+
+/* Футер */
+.win95-footer {
+    background-color: #808080;
+    border-top: 3px solid #000;
+    color: #000;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    /* Выровнять по центру */
+    align-items: center;
+    /* Вертикально центрируем */
+    /* height: 60px; */
+    /* Задаём фиксированную высоту футера */
+}
+
+.win95-footer p {
+    margin: 0;
+}
+
+.win95-footer .win95-title {
+    color: #ff0000;
+}
+
+
+/* ------------- Стиль пагинатора в стиле Windows 95 -------------*/
+.win95-pagination .pagination {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    /* Центрируем пагинацию */
+}
+
+.win95-pagination .page-item {
+    margin-right: 5px;
+}
+
+.win95-pagination .page-link {
+    display: block;
+    padding: 4px 12px;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #000;
+    /* border: 2px solid #000;
+    border-radius: 5px; */
+    font-family: "Microsoft Sans Serif", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    min-width: 28px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+/* Активная страница */
+.win95-pagination .page-item.active .page-link {
+    background-color: #a0a0a0;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+/* При наведении */
+.win95-pagination .page-link:hover {
+    background-color: #d0d0d0;
+}
+
+/* Пагинация - ссылки на страницы */
+.win95-pagination .page-link {
+    padding: 4px 12px;
+    width: auto;
+    min-width: 30px;
+    /* Увеличиваем ширину для текстов */
+}
+
+/* Кнопки "Первая" и "Последняя" */
+.win95-pagination .page-item .page-link {
+    padding: 4px 12px;
+    min-width: 70px;
+    /* Увеличиваем минимальную ширину для этих кнопок */
+}
+
+/* Кнопка "Следующая" и "Предыдущая" */
+.win95-pagination .page-item .page-link {
+    padding: 4px 12px;
+    width: auto;
+    min-width: 80px;
+}
+
+/* Убираем фокус */
+.win95-pagination .page-item .page-link:focus {
+    outline: none;
+    box-shadow: none;
+}
