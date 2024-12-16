@@ -104,10 +104,9 @@ body {
 .win95-pagination .pagination {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
-    /* Центрируем пагинацию */
 }
 
 .win95-pagination .page-item {
@@ -169,4 +168,48 @@ body {
 .win95-pagination .page-item .page-link:focus {
     outline: none;
     box-shadow: none;
+}
+
+
+/* ------------- ips_list.html -------------*/
+.win95-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Microsoft Sans Serif", sans-serif;
+}
+
+.win95-table th,
+.win95-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #000;
+}
+
+.win95-table th {
+    background-color: #c0c0c0;
+    font-weight: bold;
+}
+
+.win95-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+.win95-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.win95-table .btn {
+    padding: 4px 12px;
+    text-decoration: none;
+    background-color: #f0f0f0;
+    color: #000;
+    border: 2px solid #000;
+    border-radius: 3px;
+    font-family: "Microsoft Sans Serif", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.win95-table .btn:hover {
+    background-color: #c0c0c0;
 }

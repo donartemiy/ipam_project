@@ -27,7 +27,7 @@ class IPAddressModel(models.Model):
     status = models.CharField(choices = STATUS_CHOICES, max_length=4)
     user = models.ForeignKey(User, on_delete=models.PROTECT, null=True, related_name='ip_user')
     mac_address = models.CharField(null=True, max_length=18)
-    comment = models.TextField(null=True, blank=True)
+    comment = models.TextField(null=True, blank=True, max_length=61)
     last_seen = models.DateTimeField(null=True)
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)

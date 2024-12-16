@@ -1,25 +1,184 @@
 {% extends 'base.html' %}
 
-{% block title %}Последние обновления на сайте{% endblock %} 
+{% block title %}Список IP-адресов{% endblock %} 
 
 {% block content %}
-      <!-- класс py-5 создает отступы сверху и снизу блока -->
-      <div class="container py-5">     
-        <h1>Последние обновления на сайте</h1>
-        <main>
-            Информация на главной странице
-            <a href="">все записи</a>
-            {% for ip in page_obj %}
-                <p>
-                  {{ ip.ip_address }} {{ ip.status }} {{ ip.mac_address }}
-                  <!-- Кнопка для перехода -->
-                  <a href="{% url 'ips:var_ips_detail' ip.ip_address %}">
-                    <button type="button">Подробнее</button>
-                  </a>
-                </p>    
-                {% if not forloop.last %}<hr>{% endif %}
-            {% endfor %}
-            {% include 'paginator.html' %}
-        </main>
-      </div>
-{% endblock %} 
+  <div class="container py-5">
+    <h1>Список IP-адресов</h1>
+    <p>Здесь отображаются все IP-адреса.</p>
+
+    <table class="table table-bordered win95-table" id="ipTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">IP Address</th>
+          <th onclick="sortTable(1)">Status</th>
+          <th onclick="sortTable(2)">MAC Address</th>
+          <th onclick="sortTable(3)">Last Seen</th>
+          <th onclick="sortTable(4)">Comment</th>
+          <th onclick="sortTable(5)">User</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ip in page_obj %}
+        <tr>
+          <td>{{ ip.ip_address }}</td>
+          <td>{{ ip.status }}</td>
+          <td>{{ ip.mac_address }}</td>
+          <td>{{ ip.last_seen|date:"d M Y, H:i" }}</td>
+          <td>{{ ip.comment }}</td>
+          <td>{{ ip.user.username }}</td>
+          <td><a href="{% url 'ips:var_ips_detail' ip.ip_address %}" class="btn btn-sm btn-primary">Подробнее</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% include 'paginator.html' %}
+  </div>
+
+  <script>
+    // Функция для сортировки таблицы
+    function sortTable(columnIndex) {
+      var table = document.getElementById("ipTable");
+      var rows = Array.from(table.rows).slice(1); // Получаем все строки таблицы, кроме шапки
+      var isAscending = table.rows[0].cells[columnIndex].classList.contains("asc");
+
+      // Сортируем строки
+      rows.sort(function(rowA, rowB) {
+        var cellA = rowA.cells[columnIndex].innerText.trim();
+        var cellB = rowB.cells[columnIndex].innerText.trim();
+
+        // Сортировка IP-адресов (если столбец "IP Address")
+        if (columnIndex === 0) {
+          cellA = ipToNumber(cellA);
+          cellB = ipToNumber(cellB);
+        }
+
+        // Если значения не числа (например, строки или даты)
+        if (isNaN(cellA) || isNaN(cellB)) {
+          return cellA.localeCompare(cellB);
+        }
+
+        return cellA - cellB;  // Сортировка чисел
+      });
+
+      // Переворачиваем строки, если нужно
+      if (isAscending) {
+        rows.reverse();
+      }
+
+      // Очищаем таблицу и вставляем отсортированные строки
+      rows.forEach(function(row) {
+        table.appendChild(row);
+      });
+
+      // Меняем класс для заголовка, чтобы показывать направление сортировки
+      var headers = table.rows[0].cells;
+      Array.from(headers).forEach(function(header) {
+        header.classList.remove("asc", "desc");
+      });
+      if (isAscending) {
+        table.rows[0].cells[columnIndex].classList.add("desc");
+      } else {
+        table.rows[0].cells[columnIndex].classList.add("asc");
+      }
+    }
+
+    // Функция для преобразования IP-адреса в число
+    function ipToNumber(ip) {
+      return ip.split('.').map(function(octet) {
+        return ('00000000' + parseInt(octet).toString(2)).slice(-8);  // преобразуем каждый октет в 8-битную строку
+      }).join(''); // соединяем октеты в один 32-битный бинарный строковый номер
+    }
+  </script>
+{% endblock %}
+
+
+
+{% comment %} {% extends 'base.html' %}
+
+{% block title %}Список IP-адресов{% endblock %} 
+
+{% block content %}
+  <div class="container py-5">
+    <h1>Список IP-адресов</h1>
+    <p>Здесь отображаются все IP-адреса.</p>
+
+    <table class="table table-bordered win95-table" id="ipTable">
+      <thead>
+        <tr>
+          <th onclick="sortTable(0)">IP Address</th>
+          <th onclick="sortTable(1)">Status</th>
+          <th onclick="sortTable(2)">MAC Address</th>
+          <th onclick="sortTable(3)">Last Seen</th>
+          <th onclick="sortTable(4)">Comment</th>
+          <th onclick="sortTable(5)">User</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ip in page_obj %}
+        <tr>
+          <td>{{ ip.ip_address }}</td>
+          <td>{{ ip.status }}</td>
+          <td>{{ ip.mac_address }}</td>
+          <td>{{ ip.last_seen|date:"d M Y, H:i" }}</td>
+          <td>{{ ip.comment }}</td>
+          <td>{{ ip.user.username }}</td>
+          <td><a href="{% url 'ips:var_ips_detail' ip.ip_address %}" class="btn btn-sm btn-primary">Подробнее</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% include 'paginator.html' %}
+  </div>
+
+  <script>
+    // Функция для сортировки таблицы
+    function sortTable(columnIndex) {
+      var table = document.getElementById("ipTable");
+      var rows = Array.from(table.rows).slice(1); // Получаем все строки таблицы, кроме шапки
+      var isAscending = table.rows[0].cells[columnIndex].classList.contains("asc");
+
+      // Сортируем строки
+      rows.sort(function(rowA, rowB) {
+        var cellA = rowA.cells[columnIndex].innerText.trim();
+        var cellB = rowB.cells[columnIndex].innerText.trim();
+
+        // Если столбец содержит даты, сортируем их как даты
+        if (columnIndex === 3) {  // Индекс столбца "Last Seen"
+          cellA = new Date(cellA);
+          cellB = new Date(cellB);
+        }
+
+        if (isNaN(cellA) || isNaN(cellB)) { // Если значения не числа (например, строки)
+          return cellA.localeCompare(cellB);
+        }
+        return cellA - cellB;  // Сортировка чисел
+      });
+
+      // Переворачиваем строки, если нужно
+      if (isAscending) {
+        rows.reverse();
+      }
+
+      // Очищаем таблицу и вставляем отсортированные строки
+      rows.forEach(function(row) {
+        table.appendChild(row);
+      });
+
+      // Меняем класс для заголовка, чтобы показывать направление сортировки
+      var headers = table.rows[0].cells;
+      Array.from(headers).forEach(function(header) {
+        header.classList.remove("asc", "desc");
+      });
+      if (isAscending) {
+        table.rows[0].cells[columnIndex].classList.add("desc");
+      } else {
+        table.rows[0].cells[columnIndex].classList.add("asc");
+      }
+    }
+  </script>
+{% endblock %} {% endcomment %}

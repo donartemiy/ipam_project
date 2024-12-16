@@ -35,14 +35,15 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'ips.apps.IpsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'ips.apps.IpsConfig',
+    'users',
+    'django_cron'
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 
 # Static files (CSS, JavaScript, Images)

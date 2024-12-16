@@ -9,6 +9,20 @@ python3 manage.py runserver 0.0.0.0:8000
 python manage.py makemigrations && python manage.py migrate
 
 python manage.py createsuperuser
+
+python manage.py arping_task
+
+python manage.py showmigrations
+
+grep CRON /var/log/syslog
+
+
+sudo /home/ar-zhuravlev/ipam_project/ipam/venv/bin/python3 manage.py runserver 192.168.131.129:80
+
+# */5 * * * * source /home/ar-zhuravlev/.bashrc && source /home/ar-zhuravlev/ipam_project/ipam/venv/bin/activate && python /home/ar-zhuravlev/ipam_project/ipam/manage.py arping_task >> /home/ar-zhuravlev/ipam_project/cronjob.log 2>&1
+
+source /home/ar-zhuravlev/.bashrc && source /home/ar-zhuravlev/ipam_project/ipam/venv/bin/activate && python /home/ar-zhuravlev/ipam_project/ipam/manage.py arping_task >> /home/ar-zhuravlev/ipam_project/cronjob.log 2>&1
+
 ```
 
 
