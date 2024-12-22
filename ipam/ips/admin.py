@@ -2,6 +2,7 @@
 from django.contrib import admin
 from .models import IPAddressModel, SubnetModel
 
+admin.site.site_header = "TechwithDunamix Admin"
 # admin.site.register(IPAddressModel) 
 # admin.site.register(SubnetModel) 
 

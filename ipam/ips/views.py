@@ -1,6 +1,7 @@
 # https://docs.djangoproject.com/en/4.2/topics/http/views/
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.generic.base import TemplateView
 
 # Create your views here.
 from django.http import HttpResponse
@@ -10,20 +11,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import IPAddressModel
 from .forms import IPAddressUpdateForm
 
-# def index(request):
-#     template = 'index.html'
-#     return render(request, template) 
-
-def index(request):
-    # Одна строка вместо тысячи слов на SQL:
-    # в переменную posts будет сохранена выборка из 10 объектов модели Post,
-    # отсортированных по полю pub_date по убыванию (от больших значений к меньшим)
-    ips = IPAddressModel.objects.all()[:40]
-    # В словаре context отправляем информацию в шаблон
-    context = {
-        'ips': ips,
-    }
-    return render(request, 'index.html', context) 
 
 def ips_list(request):
     ips = IPAddressModel.objects.all()
@@ -67,3 +54,15 @@ def ips_detail(request, ip):
         'form': form,
     }
     return render(request, 'ips/ips_detail.html', context)
+
+
+class IndexView(TemplateView):
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Здесь можно произвести какие-то действия для создания контекста.
+        # Для примера в словарь просто передаются две строки
+        context['just_title'] = 'Info'
+        context['just_text'] = ('Это IPAM (IP Address Management) система. В тестовой сети у нас отсутствует DHCP, т.к. в нашей области деятельности нужна высокая надёжность и нельзя полагаться на широковещательную рассылку. Перед/при подключении нового устройства к тестовой сети нам необходимо для него выбрать свободный ip адрес. Данный сервис содержит пользователей, список ip адресов. Пользователи могут резервировать IP адреса и оставлять комментарии. Дополнительно добавлен сервис, который проверяет какие IP адреса сейчас "онлайн" в тестовой сети. Проверка выполняется командой arping -c 2 -w 3')
+        return context 

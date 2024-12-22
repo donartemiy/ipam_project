@@ -22,9 +22,6 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('login/', views.LoginView.as_view(), name='login'), 
-    # path('auth/', include('django.contrib.auth.urls')), 
     path('users/', include('users.urls', namespace='users')),
     path('', include('ips.urls', namespace='ips')),
 ]
-# TODO Review paths for user

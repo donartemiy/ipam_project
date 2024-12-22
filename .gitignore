@@ -10,6 +10,7 @@ venv/
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # Установленные пакеты
 pip-log.txt
@@ -32,8 +33,13 @@ coverage.xml
 # Системные файлы
 .DS_Store
 Thumbs.db
+*.sqlite3-journal
+*.sqlite3
+*.db
 
 # Закрытые данные (например, секреты, параметры)
 secret_key.txt
 config_secrets.yaml
 ipam/ipam_db.sqlite3
+
+

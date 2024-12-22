@@ -8,6 +8,8 @@ from django.utils import timezone
 
 from ips.models import IPAddressModel
 
+print("Debug msg")
+
 def extruct_mac(output):
     """ Функция для извлечения MAC-адреса из вывода arping. """
     for line in output.splitlines():
@@ -66,8 +68,10 @@ def insert_or_update_ip(ip, subnet_id, status, mac_address, last_seen, user_id=N
 
 class Command(BaseCommand):
     help = "Запуск ARP-сканирования сети"
+    print("Test")
 
     def handle(self, *args, **options):
+        print("Test1")
         start_time = datetime.now()
         # Переменные для статистики
         ip_count = 0
@@ -75,7 +79,7 @@ class Command(BaseCommand):
 
         subnet = ipaddress.ip_network("192.168.128.0/22")
         # subnet = ipaddress.ip_network("192.168.128.0/26")  # Подсеть
-        max_threads = 10  # Максимальное количество потоков
+        max_threads = 5  # Максимальное количество потоков
         subnet_id = 1     # Идентификатор подсети (он будет одинаковым для всех записей)
 
         with ThreadPoolExecutor(max_threads) as executor:

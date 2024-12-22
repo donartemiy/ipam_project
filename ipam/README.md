@@ -19,11 +19,17 @@ grep CRON /var/log/syslog
 
 sudo /home/ar-zhuravlev/ipam_project/ipam/venv/bin/python3 manage.py runserver 192.168.131.129:80
 
-# */5 * * * * source /home/ar-zhuravlev/.bashrc && source /home/ar-zhuravlev/ipam_project/ipam/venv/bin/activate && python /home/ar-zhuravlev/ipam_project/ipam/manage.py arping_task >> /home/ar-zhuravlev/ipam_project/cronjob.log 2>&1
-
-source /home/ar-zhuravlev/.bashrc && source /home/ar-zhuravlev/ipam_project/ipam/venv/bin/activate && python /home/ar-zhuravlev/ipam_project/ipam/manage.py arping_task >> /home/ar-zhuravlev/ipam_project/cronjob.log 2>&1
+*/5 * * * * cd /home/ar-zhuravlev/ipam_project/ipam/ && /home/ar-zhuravlev/ipam_project/ipam/venv/bin/python /home/ar-zhuravlev/ipam_project/ipam/manage.py arping_task >> /home/ar-zhuravlev/ipam_project/cronjob.log 2>&1
 
 ```
+
+# TODO 
+Сделать:
+- возможность добавления новых подсетей
+- проверку скриптом всех подсетей
+- отрефакторить скрипт
+- возможность регулировать частоту опроса?
+- Педальку, что бы вверху выдавался любой свободный IP и сразу резервировался
 
 
 ## Getting started

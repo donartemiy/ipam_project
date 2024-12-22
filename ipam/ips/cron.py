@@ -7,6 +7,8 @@
 from django_cron import CronJobBase, Schedule
 from ips.management.commands.arping_task import Command
 
+print("Debug msg")
+
 class ArpingCronJob(CronJobBase):
     RUN_EVERY_MINS = 10  # Интервал в минутах
 

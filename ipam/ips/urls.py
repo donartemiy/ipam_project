@@ -6,7 +6,8 @@ from . import views
 app_name = 'ips'
 
 urlpatterns = [
-    # path('', views.index),
-    path('ips/', views.ips_list, name='var_ips'),
     path('ips/<str:ip>/', views.ips_detail, name='var_ips_detail'),
+    path('ips/', views.ips_list, name='var_ips'),
+    # path('', views.index),
+    path('', views.IndexView.as_view(), name='var_index'),
 ] 
