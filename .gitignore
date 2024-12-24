@@ -41,5 +41,3 @@ Thumbs.db
 secret_key.txt
 config_secrets.yaml
 ipam/ipam_db.sqlite3
-
-

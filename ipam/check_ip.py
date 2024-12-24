@@ -1,4 +1,6 @@
 # Параметр arping -w 4 подобран опытным путём.
+# Скрипт служит для тестового запуска.
+# Приложение использует django commands
 
 import sqlite3
 import subprocess
